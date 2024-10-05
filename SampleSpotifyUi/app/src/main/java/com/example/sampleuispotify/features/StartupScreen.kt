@@ -1,18 +1,16 @@
 package com.example.sampleuispotify.features
 
-import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material3.Button
@@ -23,11 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,23 +34,26 @@ import com.example.sampleuispotify.ui.theme.SampleUiSpotifyTheme
 @Composable
 fun StartupScreen() {
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-        Box(
-            modifier =
-            Modifier
+        Spacer(
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .background(color = Color(0xFF121212)),
-            contentAlignment = Alignment.Center
-        ) {
-            Image(painter = painterResource(R.drawable.ic_white_spotify), contentDescription = null)
-        }
+                .background(color = Color(0xFF121212))
+        )
         Column(modifier = Modifier.fillMaxSize()) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
                     .height(0.dp)
-            ) { }
+            ) {
+                Image(
+                    modifier = Modifier.fillMaxHeight(),
+                    painter = painterResource(R.drawable.bg_startup_screen),
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop
+                )
+            }
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -78,8 +78,7 @@ fun StartupScreen() {
                         .padding(top = 22.dp, start = 45.dp, end = 45.dp),
                     onClick = { },
                     colors = ButtonDefaults.buttonColors(
-                        contentColor = Color.Black,
-                        containerColor = Color(0xFF1ED760)
+                        contentColor = Color.Black, containerColor = Color(0xFF1ED760)
                     )
                 ) {
                     Text(
@@ -117,14 +116,20 @@ fun StartupScreen() {
                 )
             }
         }
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(color = Color.Transparent),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(painter = painterResource(R.drawable.ic_white_spotify), contentDescription = null)
+        }
     }
 }
 
 @Composable
 private fun LoginWithButton(
-    modifier: Modifier = Modifier,
-    @DrawableRes icon: Int,
-    title: String
+    modifier: Modifier = Modifier, @DrawableRes icon: Int, title: String
 ) {
     Button(
         modifier = modifier
